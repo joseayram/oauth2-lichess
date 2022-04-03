@@ -7,7 +7,7 @@ class Helper
      * isEmptyOrNull
      * Verify is a string is Empty or Null
      *
-     * @param [mixed] $value
+     * @param mixed $value
      * @return boolean
      */
     public static function isEmptyOrNull($value): bool

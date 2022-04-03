@@ -3,10 +3,13 @@
 namespace CrudSys\OAuth2\Client\Test\Entity;
 
 use CrudSys\OAuth2\Client\Entity\User;
+use League\OAuth2\Client\Tool\ArrayAccessorTrait;
 use PHPUnit\Framework\TestCase;
 
 final class UserTest extends TestCase
 {
+    use ArrayAccessorTrait;
+
     private User $user;
     private $response;
 
@@ -23,13 +26,18 @@ final class UserTest extends TestCase
                 'bio' => 'Russian chess grandmaster, former World Chess Champion, writer, political activist and commentator',
                 'firstName' => 'Garry',
                 'lastName' => 'Kasparov',
-                'links' => 'https://twitter.com/garrykasparov'
+                'links' => ''
             ],
             'url' => 'https://lichess.org/@/garrykasparov',
-            'completionRate' => '100000',
+            'completionRate' => 100000,
         ];
 
         $this->user = new User($this->response);
+    }
+
+    private function getResponseKey(string $key)
+    {
+        return $this->getValueByKey($this->response, $key);
     }
 
     public function testToArray(): void
@@ -40,12 +48,12 @@ final class UserTest extends TestCase
 
     public function testGetId(): void
     {
-        $this->assertEquals($this->response['id'], $this->user->getId());
+        $this->assertEquals($this->getResponseKey('id'), $this->user->getId());
     }
 
     public function testGetUsername(): void
     {
-        $this->assertEquals($this->response['username'], $this->user->getUsername());
+        $this->assertEquals($this->getResponseKey('username'), $this->user->getUsername());
     }
 
     public function testIsPatron(): void
@@ -60,47 +68,52 @@ final class UserTest extends TestCase
 
     public function testGetProfile(): void
     {
-        $this->assertIsArray($this->response['profile']);
-        $this->assertEquals($this->response['profile'], $this->user->getProfile());
+        $this->assertIsArray($this->getResponseKey('profile'));
+        $this->assertEquals($this->getResponseKey('profile'), $this->user->getProfile());
     }
 
     public function testGetCountry(): void
     {
-        $this->assertEquals($this->response['profile']['country'], $this->user->getCountry());
+        $this->assertEquals($this->getResponseKey('profile.country'), $this->user->getCountry());
     }
 
     public function testGetLocation(): void
     {
-        $this->assertEquals($this->response['profile']['location'], $this->user->getLocation());
+        $this->assertEquals($this->getResponseKey('profile.location'), $this->user->getLocation());
     }
 
     public function testGetBio(): void
     {
-        $this->assertEquals($this->response['profile']['bio'], $this->user->getBio());
+        $this->assertEquals($this->getResponseKey('profile.bio'), $this->user->getBio());
     }
 
     public function testGetFirstName(): void
     {
-        $this->assertEquals($this->response['profile']['firstName'], $this->user->getFirstName());
+        $this->assertEquals($this->getResponseKey('profile.firstName'), $this->user->getFirstName());
     }
 
     public function testGetLastName(): void
     {
-        $this->assertEquals($this->response['profile']['lastName'], $this->user->getLastName());
+        $this->assertEquals($this->getResponseKey('profile.lastName'), $this->user->getLastName());
     }
 
     public function testGetLinks(): void
     {
-        $this->assertEquals($this->response['profile']['links'], $this->user->getLinks());
+        $this->assertEquals($this->getResponseKey('profile.links'), $this->user->getLinks());
     }
 
     public function testGetUrl(): void
     {
-        $this->assertEquals($this->response['url'], $this->user->getUrl());
+        $this->assertEquals($this->getResponseKey('url'), $this->user->getUrl());
     }
 
     public function testGetCompletionRate(): void
     {
-        $this->assertEquals($this->response['completionRate'], $this->user->getCompletionRate());
+        $this->assertEquals($this->getResponseKey('completionRate'), $this->user->getCompletionRate());
+    }
+
+    public function testGetBlocking(): void
+    {
+        $this->assertEquals($this->getResponseKey('blocking'), $this->user->getBlocking());
     }
 }

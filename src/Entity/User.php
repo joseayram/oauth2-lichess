@@ -10,14 +10,8 @@ class User implements ResourceOwnerInterface
 {
     use ArrayAccessorTrait;
 
-    /**
-     * Raw response
-     */
     protected array $response;
 
-    /**
-     * @param array $response
-     */
     public function __construct(array $response)
     {
         $this->response = $response;
@@ -28,10 +22,34 @@ class User implements ResourceOwnerInterface
         return $this->response;
     }
 
-    private function validateString($value): string
+    private function validateString(string $key): string
     {
-        if( !is_string($value) || Helper::isEmptyOrNull($value)) {
+        $value = $this->getValueByKey($this->response, $key);
+
+        if(!is_string($value) || Helper::isEmptyOrNull($value)) {
             $value = '';
+        }
+
+        return $value;
+    }
+
+    private function validateBool(string $key): bool
+    {
+        $value = (bool) $this->getValueByKey($this->response, $key);
+
+        if(!is_bool($value) || Helper::isEmptyOrNull($value)) {
+            $value = false;
+        }
+
+        return $value;
+    }
+
+    private function validateInt(string $key): int
+    {
+        $value = (int) $this->getValueByKey($this->response, $key);
+
+        if(!is_int($value) || Helper::isEmptyOrNull($value)) {
+            $value = 0;
         }
 
         return $value;
@@ -39,22 +57,22 @@ class User implements ResourceOwnerInterface
 
     public function getId(): string
     {
-        return $this->validateString( $this->getValueByKey($this->response, 'id') );
+        return $this->validateString('id');
     }
 
     public function getUsername(): string
     {
-        return $this->validateString( $this->getValueByKey($this->response, 'username') );
+        return $this->validateString('username');
     }
 
     public function isPatron(): bool
     {
-        return $this->getValueByKey($this->response, 'patron');
+        return $this->validateBool('patron');
     }
 
     public function isOnline(): bool
     {
-        return $this->getValueByKey($this->response, 'online');
+        return $this->validateBool('online');
     }
 
     public function getProfile(): array
@@ -64,41 +82,46 @@ class User implements ResourceOwnerInterface
 
     public function getCountry(): string
     {
-        return $this->validateString( $this->getValueByKey($this->response, 'profile.country') );
+        return $this->validateString('profile.country');
     }
 
     public function getLocation(): string
     {
-        return $this->validateString( $this->getValueByKey($this->response, 'profile.location') );
+        return $this->validateString('profile.location');
     }
 
     public function getBio(): string
     {
-        return $this->validateString( $this->getValueByKey($this->response, 'profile.bio') );
+        return $this->validateString('profile.bio');
     }
 
     public function getFirstName(): string
     {
-        return $this->validateString( $this->getValueByKey($this->response, 'profile.firstName') );
+        return $this->validateString('profile.firstName');
     }
 
     public function getLastName(): string
     {
-        return $this->validateString( $this->getValueByKey($this->response, 'profile.lastName') );
+        return $this->validateString('profile.lastName');
     }
 
     public function getLinks(): string
     {
-        return $this->validateString( $this->getValueByKey($this->response, 'profile.links') );
+        return $this->validateString('profile.links');
     }
 
     public function getUrl(): string
     {
-        return $this->validateString( $this->getValueByKey($this->response, 'url') );
+        return $this->validateString('url');
     }
 
     public function getCompletionRate(): int
     {
-        return $this->getValueByKey($this->response, 'completionRate');
+        return $this->validateInt('completionRate');
+    }
+
+    public function getBlocking(): int
+    {
+        return $this->validateInt('blocking');
     }
 }
