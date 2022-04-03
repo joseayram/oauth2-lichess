@@ -1,8 +1,3 @@
-checks:
-  php:
-    code_rating: true
-    duplication: true
-
 build:
   environment:
     php: 7.4.3
@@ -14,8 +9,16 @@ build:
             coverage:
               file: 'build/coverage/log/coverage.xml'
               format: 'clover'
-          - phpcs-run --ignore=*/tests/*
+          - phpcs-run
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
 
 filter:
+  paths:
+    - src/
   excluded_paths:
-    - "tests/"
+    - tests/
+  dependency_paths:
+    - vendor/
