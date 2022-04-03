@@ -4,6 +4,7 @@ namespace CrudSys\OAuth2\Client\Entity;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Tool\ArrayAccessorTrait;
+use CrudSys\OAuth2\Client\Helper\Helper;
 
 class User implements ResourceOwnerInterface
 {
@@ -11,7 +12,6 @@ class User implements ResourceOwnerInterface
 
     /**
      * Raw response
-     *
      */
     protected array $response;
 
@@ -28,14 +28,23 @@ class User implements ResourceOwnerInterface
         return $this->response;
     }
 
+    private function validateString($value): string
+    {
+        if( !is_string($value) || Helper::isEmptyOrNull($value)) {
+            $value = '';
+        }
+
+        return $value;
+    }
+
     public function getId(): string
     {
-        return $this->getValueByKey($this->response, 'id');
+        return $this->validateString( $this->getValueByKey($this->response, 'id') );
     }
 
     public function getUsername(): string
     {
-        return $this->getValueByKey($this->response, 'username');
+        return $this->validateString( $this->getValueByKey($this->response, 'username') );
     }
 
     public function isPatron(): bool
@@ -55,40 +64,40 @@ class User implements ResourceOwnerInterface
 
     public function getCountry(): string
     {
-        return $this->getValueByKey($this->response, 'profile.country');
+        return $this->validateString( $this->getValueByKey($this->response, 'profile.country') );
     }
 
     public function getLocation(): string
     {
-        return $this->getValueByKey($this->response, 'profile.location');
+        return $this->validateString( $this->getValueByKey($this->response, 'profile.location') );
     }
 
     public function getBio(): string
     {
-        return $this->getValueByKey($this->response, 'profile.bio');
+        return $this->validateString( $this->getValueByKey($this->response, 'profile.bio') );
     }
 
     public function getFirstName(): string
     {
-        return $this->getValueByKey($this->response, 'profile.firstName');
+        return $this->validateString( $this->getValueByKey($this->response, 'profile.firstName') );
     }
 
     public function getLastName(): string
     {
-        return $this->getValueByKey($this->response, 'profile.lastName');
+        return $this->validateString( $this->getValueByKey($this->response, 'profile.lastName') );
     }
 
     public function getLinks(): string
     {
-        return $this->getValueByKey($this->response, 'profile.links');
+        return $this->validateString( $this->getValueByKey($this->response, 'profile.links') );
     }
 
     public function getUrl(): string
     {
-        return $this->getValueByKey($this->response, 'url');
+        return $this->validateString( $this->getValueByKey($this->response, 'url') );
     }
 
-    public function getCompletionRate()
+    public function getCompletionRate(): int
     {
         return $this->getValueByKey($this->response, 'completionRate');
     }
