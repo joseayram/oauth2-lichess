@@ -25,6 +25,9 @@
         "squizlabs/php_codesniffer": "^3.6.2"
     },
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "CrudSys\\OAuth2\\Client\\": "src/"
         }

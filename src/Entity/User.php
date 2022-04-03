@@ -4,7 +4,6 @@ namespace CrudSys\OAuth2\Client\Entity;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Tool\ArrayAccessorTrait;
-use CrudSys\OAuth2\Client\Helper\Helper;
 
 class User implements ResourceOwnerInterface
 {
@@ -26,7 +25,7 @@ class User implements ResourceOwnerInterface
     {
         $value = $this->getValueByKey($this->response, $key);
 
-        if(!is_string($value) || Helper::isEmptyOrNull($value)) {
+        if(!is_string($value) || \isEmptyOrNull($value)) {
             $value = '';
         }
 
@@ -37,7 +36,7 @@ class User implements ResourceOwnerInterface
     {
         $value = (bool) $this->getValueByKey($this->response, $key);
 
-        if(!is_bool($value) || Helper::isEmptyOrNull($value)) {
+        if(!is_bool($value) || \isEmptyOrNull($value)) {
             $value = false;
         }
 
@@ -48,7 +47,7 @@ class User implements ResourceOwnerInterface
     {
         $value = (int) $this->getValueByKey($this->response, $key);
 
-        if(!is_int($value) || Helper::isEmptyOrNull($value)) {
+        if(!is_int($value) || \isEmptyOrNull($value)) {
             $value = 0;
         }
 
