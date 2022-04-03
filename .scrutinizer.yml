@@ -9,7 +9,7 @@ build:
             coverage:
               file: 'build/coverage/log/coverage.xml'
               format: 'clover'
-          - phpcs-run
+          - command: phpcs-run
     analysis:
       tests:
         override:
