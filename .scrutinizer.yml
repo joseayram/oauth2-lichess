@@ -4,14 +4,17 @@ checks:
     duplication: true
 
 build:
-  tests:
-    override:
-      -
-        command: 'vendor/bin/phpunit --coverage-clover build/coverage/log/coverage.xml'
-        coverage:
-          file: 'build/coverage/log/coverage.xml'
-          format: 'clover'
-      - phpcs-run --ignore=*/tests/*
+  environment:
+    php: 7.4.3
+  nodes:
+    coverage:
+      tests:
+        override:
+          - command: 'XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text'
+            coverage:
+              file: 'build/coverage/log/coverage.xml'
+              format: 'clover'
+          - phpcs-run --ignore=*/tests/*
 
 filter:
   excluded_paths:
