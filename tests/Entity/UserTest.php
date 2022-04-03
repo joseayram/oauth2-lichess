@@ -58,6 +58,12 @@ final class UserTest extends TestCase
         $this->assertTrue($this->user->isOnline());
     }
 
+    public function testGetProfile(): void
+    {
+        $this->assertIsArray($this->response['profile']);
+        $this->assertEquals($this->response['profile'], $this->user->getProfile());
+    }
+
     public function testGetCountry(): void
     {
         $this->assertEquals($this->response['profile']['country'], $this->user->getCountry());
