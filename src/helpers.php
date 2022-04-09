@@ -1,13 +1,13 @@
 <?php
 
-if(!function_exists('isEmptyOrNull')) {
+if (!function_exists('isEmptyOrNull')) {
     function isEmptyOrNull($value): bool
     {
         return is_null($value) || empty($value) || '' === $value;
     }
 }
 
-if(!function_exists('base64URLEncode')) {
+if (!function_exists('base64URLEncode')) {
     /**
      * base64URLEncode
      *
@@ -31,18 +31,18 @@ if(!function_exists('base64URLEncode')) {
     }
 }
 
-if(!function_exists('createVerifier')) {
+if (!function_exists('createVerifier')) {
     function createVerifier(): string
     {
-        $random = bin2hex( openssl_random_pseudo_bytes(32) );
+        $random = bin2hex(openssl_random_pseudo_bytes(32));
 
-        return \base64URLEncode( pack('H*', $random) );
+        return \base64URLEncode(pack('H*', $random));
     }
 }
 
-if(!function_exists('createChallenge')) {
+if (!function_exists('createChallenge')) {
     function createChallenge(string $verifier): string
     {
-        return \base64URLEncode( pack('H*', hash('sha256', $verifier) ) );
+        return \base64URLEncode(pack('H*', hash('sha256', $verifier)));
     }
 }

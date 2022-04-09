@@ -25,7 +25,7 @@ class User implements ResourceOwnerInterface
     {
         $value = $this->getValueByKey($this->response, $key);
 
-        if(!is_string($value) || \isEmptyOrNull($value)) {
+        if (!is_string($value) || \isEmptyOrNull($value)) {
             $value = '';
         }
 
@@ -36,7 +36,7 @@ class User implements ResourceOwnerInterface
     {
         $value = (bool) $this->getValueByKey($this->response, $key);
 
-        if(!is_bool($value) || \isEmptyOrNull($value)) {
+        if (!is_bool($value) || \isEmptyOrNull($value)) {
             $value = false;
         }
 
@@ -47,7 +47,7 @@ class User implements ResourceOwnerInterface
     {
         $value = (int) $this->getValueByKey($this->response, $key);
 
-        if(!is_int($value) || \isEmptyOrNull($value)) {
+        if (!is_int($value) || \isEmptyOrNull($value)) {
             $value = 0;
         }
 
