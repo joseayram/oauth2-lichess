@@ -11,8 +11,8 @@ This package provides [Lichess](https://lichess.org/) OAuth 2.0 support for the 
 
 To install, use composer:
 
-```
-composer require joseayram/oauth2-lichess
+```bash
+$ composer require joseayram/oauth2-lichess
 ```
 
 ## Usage
@@ -22,8 +22,6 @@ Usage is just the same as The League's OAuth client, using `\CrudSys\OAuth2\Clie
 ### Authorization Code Flow
 
 ```php
-namespace Lichess;
-
 require_once 'oauth2-lichess/vendor/autoload.php';
 
 session_start();
@@ -118,23 +116,27 @@ If no scopes are passed, only `public` is used
 
 At the time of authoring this documentation, the [following scopes are available](https://lichess.org/api#section/Authentication).
 
-- `PREFERENCE_READ`  Read your preferences.
-- `PREFERENCE_WRITE` Write your preferences.
-- `EMAIL` Read your email address.
-- `CHALLENGE_READ` Read incoming challenges.
-- `CHALLENGE_WRITE` Create, accept, decline challenges.
-- `CHALLENGE_BULK` Create, delete, query bulk pairings.
+  - `PREFERENCE_READ`  Read your preferences.
+  - `PREFERENCE_WRITE` Write your preferences.
+  - `EMAIL` Read your email address.
+  - `CHALLENGE_READ` Read incoming challenges.
+  - `CHALLENGE_WRITE` Create, accept, decline challenges.
+  - `CHALLENGE_BULK` Create, delete, query bulk pairings.
 
 ## Testing
 
-```
+```bash
 $ ./vendor/bin/phpunit
 ```
 
 ## Credits
 
-- [José Ayram](https://github.com/joseayram)
-- [All Contributors](https://github.com/joseayram/oauth2-lichess/contributors)
+  - [José Ayram](https://github.com/joseayram)
+  - [All Contributors](https://github.com/joseayram/oauth2-lichess/contributors)
+
+## Contributing
+
+Please see [our contributing guidelines](https://github.com/joseayram/oauth2-lichess/blob/master/CONTRIBUTING.md) for details.
 
 ## License
 
