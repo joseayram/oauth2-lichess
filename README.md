@@ -116,12 +116,12 @@ If no scopes are passed, only `public` is used
 
 At the time of authoring this documentation, the [following scopes are available](https://lichess.org/api#section/Authentication).
 
-  - `PREFERENCE_READ`  Read your preferences.
-  - `PREFERENCE_WRITE` Write your preferences.
-  - `EMAIL` Read your email address.
-  - `CHALLENGE_READ` Read incoming challenges.
-  - `CHALLENGE_WRITE` Create, accept, decline challenges.
-  - `CHALLENGE_BULK` Create, delete, query bulk pairings.
+-  `PREFERENCE_READ`  Read your preferences.
+-  `PREFERENCE_WRITE` Write your preferences.
+-  `EMAIL` Read your email address.
+-  `CHALLENGE_READ` Read incoming challenges.
+-  `CHALLENGE_WRITE` Create, accept, decline challenges.
+-  `CHALLENGE_BULK` Create, delete, query bulk pairings.
 
 ## Testing
 
