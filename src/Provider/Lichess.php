@@ -19,13 +19,6 @@ class Lichess extends AbstractProvider
     public const SCOPE_CHALLENGE_WRITE = 'challenge:write';
     public const SCOPE_CHALLENGE_BULK = 'challenge:bulk';
 
-    /**
-     * Code Challenge Method. Defaults to S256. Available options are:
-     *  * S256
-     * @var string
-     */
-    protected $code_challenge_method;
-
     public function __construct(array $options = [ ], array $collaborators = [ ])
     {
         $options['code_challenge_method'] = 'S256';
