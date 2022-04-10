@@ -122,7 +122,7 @@ $ ./vendor/bin/phpunit
 
 ## Changelog
 
-Please see [our changelog file](https://github.com/joseayram/oauth2-lichess/blob/master/CHANGELOG.md) for details.
+Please see [our changelog file](https://github.com/joseayram/oauth2-lichess/blob/main/CHANGELOG.md) for details.
 
 ## Credits
 
@@ -133,8 +133,8 @@ Special thanks to all creators of the others [oauth2 client's third-party packag
 
 ## Contributing
 
-Please see [our contributing guidelines](https://github.com/joseayram/oauth2-lichess/blob/master/CONTRIBUTING.md) for details.
+Please see [our contributing guidelines](https://github.com/joseayram/oauth2-lichess/blob/main/CONTRIBUTING.md) for details.
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/joseayram/oauth2-lichess/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/joseayram/oauth2-lichess/blob/main/LICENSE) for more information.
