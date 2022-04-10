@@ -29,54 +29,45 @@ session_start();
 use CrudSys\OAuth2\Client\Provider\Lichess;
 
 $clientId = 'api-lichess-test';
-$redirectUri = 'https://api.lichess.test/login.php'; // you must change this value
+$clientSecret = '{your-secret-client}';
+$redirectUri = '{your-redirect-uri}';
 
-if(!isset($_SESSION['codeVerifier'])) {
-    $verifier = \createVerifier();
+if (!isset($_SESSION['codeVerifier'])) {
+    $verifier = createVerifier();
     $_SESSION['codeVerifier'] = $verifier;
-}else{
+} else {
     $verifier = $_SESSION['codeVerifier'];
 }
 
-$challenge = \createChallenge($verifier);
-
 $provider = new Lichess([
     'clientId'      => $clientId,
-    'clientSecret'  => 'client-secret',
-    'redirectUri'   => $redirectUri
+    'clientSecret'  => $clientSecret,
+    'redirectUri'   => $redirectUri,
 ]);
 
-if ( !isset($_GET['code']) && !isset($_GET['error'])) {
+if (!isset($_GET['code']) && !isset($_GET['error'])) {
+    $challenge = createChallenge($verifier);
 
     // If we don't have an authorization code then get one
     $authUrl = $provider->getAuthorizationUrl([
-        'code_challenge_method' => 'S256',
         'code_challenge' => $challenge,
     ]);
 
     $_SESSION['oauth2state'] = $provider->getState();
 
     echo "<a href='{$authUrl}'>Login with Lichess</a>";
-
-} elseif (  ( isset($_GET['error']) && !empty($_GET['error']) ) &&
-            ( isset($_GET['error_description']) && !empty($_GET['error_description']) )
+} elseif ((isset($_GET['error']) && !empty($_GET['error']) ) &&
+        (isset($_GET['error_description']) && !empty($_GET['error_description']) )
 ) {
-
     unset($_SESSION['oauth2state']);
     exit($_GET['error'].': '.$_GET['error_description']);
-
 } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
-
     unset($_SESSION['oauth2state']);
     exit('Invalid state, make sure HTTP sessions are enabled.');
-}
-else {
-    // Try to get an access token (using the authorization coe grant)
+} else {
+    // Try to get an access token (using the authorization code grant)
     try {
         $token = $provider->getAccessToken('authorization_code', [
-            'grant_type' => 'authorization_code',
-            'redirect_uri' => $redirectUri,
-            'client_id' => $clientId,
             'code' => $_GET['code'],
             'code_verifier' => $_SESSION['codeVerifier'],
         ]);
@@ -116,12 +107,12 @@ If no scopes are passed, only `public` is used
 
 At the time of authoring this documentation, the [following scopes are available](https://lichess.org/api#section/Authentication).
 
--  `PREFERENCE_READ`  Read your preferences.
--  `PREFERENCE_WRITE` Write your preferences.
--  `EMAIL` Read your email address.
--  `CHALLENGE_READ` Read incoming challenges.
--  `CHALLENGE_WRITE` Create, accept, decline challenges.
--  `CHALLENGE_BULK` Create, delete, query bulk pairings.
+- `PREFERENCE_READ`  Read your preferences.
+- `PREFERENCE_WRITE` Write your preferences.
+- `EMAIL` Read your email address.
+- `CHALLENGE_READ` Read incoming challenges.
+- `CHALLENGE_WRITE` Create, accept, decline challenges.
+- `CHALLENGE_BULK` Create, delete, query bulk pairings.
 
 ## Testing
 
@@ -129,10 +120,16 @@ At the time of authoring this documentation, the [following scopes are available
 $ ./vendor/bin/phpunit
 ```
 
+## Changelog
+
+Please see [our changelog file](https://github.com/joseayram/oauth2-lichess/blob/master/CHANGELOG.md) for details.
+
 ## Credits
 
-  - [José Ayram](https://github.com/joseayram)
-  - [All Contributors](https://github.com/joseayram/oauth2-lichess/contributors)
+-	[José Ayram](https://github.com/joseayram)
+-	[All Contributors](https://github.com/joseayram/oauth2-lichess/contributors)
+
+Special thanks to all creators of the others [oauth2 client's third-party packages](https://oauth2-client.thephpleague.com/providers/thirdparty/) I learnt a lot of them.
 
 ## Contributing
 

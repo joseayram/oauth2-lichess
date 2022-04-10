@@ -21,7 +21,6 @@ class Lichess extends AbstractProvider
 
     public function __construct(array $options = [ ], array $collaborators = [ ])
     {
-        $options['code_challenge_method'] = 'S256';
         parent::__construct($options, $collaborators);
     }
 
@@ -48,6 +47,27 @@ class Lichess extends AbstractProvider
     protected function getScopeSeparator(): string
     {
         return ' ';
+    }
+
+    protected function getDefaultCodeChallengeMethod(): string
+    {
+        return 'S256';
+    }
+
+    /**
+     * Returns authorization parameters based on provided options.
+     * Added Code Challenge Method
+     *
+     * @param  array $options
+     * @return array Authorization parameters
+     */
+    protected function getAuthorizationParameters(array $options)
+    {
+        if (empty($options['code_challenge_method'])) {
+            $options['code_challenge_method'] = $this->getDefaultCodeChallengeMethod();
+        }
+
+        return parent::getAuthorizationParameters($options);
     }
 
     /**
