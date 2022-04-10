@@ -4,6 +4,7 @@
 
 _Released: 2022-04-10_
 * IMP: Added default value to Code Challenge Method
+* NEW: Added changelog file
 
 ## 0.1.0
 
